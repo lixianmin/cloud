@@ -3,21 +3,18 @@
 #### 基础理论
 ##### 贝叶斯定理
 
-```math
-P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{P(B|A) \cdot P(A)}{P(B)}
-```
+$P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{P(B|A) \cdot P(A)}{P(B)}$
 
 ##### 全概率公式
 
-```math
-P(B) = P(B|A) \cdot P(A) + P(B|\overline A) \cdot P(\overline A)
-```
+$P(B) = P(B|A) \cdot P(A) + P(B|\overline A) \cdot P(\overline A)$
+
 
 #### 速算公式 (for朴素贝叶斯分类器)
 
-```math
+$
 P(A|B_1 B_2 B_3) = \frac{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots }{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots  + 1}
-```
+$
 
 可见，要P(B|A)跟两个概率有关，一个是==先验概率P(A)==，一个是==似然概率P(B|A)==
 
