@@ -3,6 +3,8 @@
 ---
 #### 基础理论
 
+很多情况下我们需要使用概率，而无法使用基于规则的判断。
+
 概率，往往以**_信心、频率、可能性_**等形式出现，相关公式包括：
 
 1. 贝叶斯定理  ⇒ $P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{  P(A) \cdot P(B|A)}{P(B)}$
@@ -12,7 +14,7 @@
 1. 朴素贝叶斯分类器速算公式 ⇒ $ P(A|B_1 B_2 B_3) = \frac{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots }{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots  + 1} $
 	- **先验比 x 似然比1 x 似然比2 x ...，然后normalize** 
 
-在贝叶斯定理中，P(A|B) ∝ P(A)xP(B|A)，这两个概率是我们要一直在意的事情：一个是**先验概率P(A)**，一个是**似然概率P(B|A)**：
+在贝叶斯定理中，P(A|B) ∝ P(A)xP(B|A)，这两个概率是我们要一直在意的事情：**先验概率P(A)，似然概率P(B|A)**：
 
 1. P(A) ⇒ 先验概率
 	- 又叫基础概率，是无任何条件限制时事件A发生的概率
