@@ -5,9 +5,9 @@
 
 很多情况下我们需要使用概率，而无法使用基于规则的判断。
 
-概率，往往以**_信心、频率、可能性_**等形式出现，相关公式包括：
+概率，往往以**信心、频率、可能性**等形式出现，相关公式包括：
 
-1. 贝叶斯定理  ⇒ $P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{  P(A) \cdot P(B|A)}{P(B)}$
+1. 贝叶斯定理  ⇒ ·$P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{  P(A) \cdot P(B|A)}{P(B)}$·
 
 1. 全概率公式 ⇒  $P(B) = P(B|A) \cdot P(A) + P(B|\overline A) \cdot P(\overline A)$
 
