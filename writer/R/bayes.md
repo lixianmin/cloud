@@ -12,6 +12,8 @@
 1. 全概率公式 ⇒  $P(B) = P(B|A) \cdot P(A) + P(B|\overline A) \cdot P(\overline A)$
 
 1. 朴素贝叶斯分类器速算公式 ⇒ $ P(A|B_1 B_2 B_3) = \frac{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots }{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots  + 1} $
+	- Posterior = Prior x Likelihood
+	- Posterior odds ratio = Prior odds ratio x Likelihood ratio
 	- **先验比 x 似然比1 x 似然比2 x ...，然后normalize** 
 
 在贝叶斯定理中，P(A|B) ∝ P(A)xP(B|A)，这两个概率是我们要一直在意的事情：**先验概率P(A)，似然概率P(B|A)**：
@@ -109,7 +111,14 @@ P(D|+)  = P(D) x P(+|D) / P(+)
 = 0.3322
 
 1. 吸毒检测的准确率高达99%，直觉上我们会觉得如果一个人检测呈阳性了，他基本上就是已经在吸毒了，但贝叶斯定理告诉我们：如果某人检测呈阳性，其吸毒的概率只有大约33%，不吸毒的可能性比较大。**假阳性高，则检测的结果不可靠，这可能会反直觉**。
+
 2. 贝叶斯定理计算的是条件概率，换句话说，在不知道任何条件之前对每个员工我们认为他吸毒的概率是0.5%，但在检测之后，对于检测结果呈阳性的员工而言，他吸毒的概率变成了33%，是未检测之前的66倍。其实**P(D)与P(D|+)都是描述同一件事情，只不过P(D|+)是在得到某些新证据后计算出的一个更加精确的概率**。在针对该员工的新一轮的验证计算中，P(D|+)将会替代原P(D)的角色参与计算，贝叶斯公式可以通过不断的增加新证据叠加应用，这也是该公式的牛B之处。
+
+---
+#### [Bayesian Thinking](https://www.youtube.com/watch?v=BrK7X_XlGB8)
+1. Remember you priors
+2. Imagine your theory's wrong. Would the world look different?
+3. Update incrementally (snowflakes of evidence).
 
 ---
 #### 参考文献
