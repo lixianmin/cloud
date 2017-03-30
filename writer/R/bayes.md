@@ -3,32 +3,58 @@
 ---
 #### 基础理论
 
-很多情况下我们需要使用概率，而无法使用基于规则的判断。
+当我们无法基于规则进行判断时， 我们使用概率。
 
-概率，往往以**信心、频率、可能性**等形式出现，相关公式包括：
 
-1. 贝叶斯定理  ⇒ $P(A|B) = \frac{P(A \bigcap B)}{P(B)} = \frac{  P(A) \cdot P(B|A)}{P(B)}$
+##### [Probability vs. Statistics](http://stats.stackexchange.com/questions/665/whats-the-difference-between-probability-and-statistics/)
 
-1. 全概率公式 ⇒  $P(B) = P(B|A) \cdot P(A) + P(B|\overline A) \cdot P(\overline A)$
+在某种程度上，概率论和统计学的目的是完全相反(inverse)的：
 
-1. 朴素贝叶斯分类器速算公式 ⇒ $ P(A|B_1 B_2 B_3) = \frac{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots }{ \frac{P(A)}{P(\overline A)} \cdot \frac{P(B_1|A)}{P(B_1|\overline A)} \cdot \frac{P(B_2|A)}{P(B_2|\overline A)} \times \cdots  + 1} $
-	- Posterior = Prior x Likelihood
-	- Posterior odds ratio = Prior odds ratio x Likelihood ratio
-	- **先验比 x 似然比1 x 似然比2 x ...，然后normalize** 
+1.  In probability theory we consider some underlying process which has some randomness or uncertainty modeled by random variables, and we figure out what happens. 基于已有的理论模型，推断未知事件发生的概率。
 
-在贝叶斯定理中，P(A|B) ∝ P(A)xP(B|A)，这两个概率是我们要一直在意的事情：**先验概率P(A)，似然概率P(B|A)**：
+2. In statistics we observe something that has happened, and try to figure out what underlying process would explain those observations.观察数据，并推断什么样的理论模型可以解释我们观察到的数据。
 
-1. P(A) ⇒ 先验概率
-	- 又叫基础概率，是无任何条件限制时事件A发生的概率
-	- 当只存在两种分类目标A与~A时，由于P(A) + P(~A) = 1，因此先验比往往比较容易计算
+Bayes是用于推理的，而**推理讲究证据**，因此如果非要归类的话，Bayes将属于统计学范畴而不是概率论。
 
-1. P(B|A) ⇒ 似然概率（自己起得名，别人叫**相似度likelihood**）
-	- **_物以类聚，人以群分_**，如果我们把A与~A看作两类人，比如男人和女人，那么**这两类人针对同一件事情会有不同的看法和倾向**，比如男人可能更喜欢踢足球，而女人可能更喜欢逛街，似然概率描述的就是这两类不同的人针对事件$B_i$表现出的倾向概率
-	- 由于P(B|A)与P(B|~A)是针对两类不同的人的概率，因此它们之间没有任何关系， **P(B|A) + P(B|~A) ≠ 1**
-	- 在朴素贝叶斯分类器中，因为假设事件$B_1, B_2, ...$之间是相互独立的，因此它们似然概率可以连乘
-1. 贝叶斯公式反映了这样一件事情：即可以使用已知事件来强化对未知事件的信心程度，每当新获知了一个信息后，都可以加入到原有贝叶斯系统中调整（可能是**增删改 + - x**）对原有事件的看法
+##### [The diachronic interpretation](http://www.greenteapress.com/thinkbayes/html/thinkbayes002.html)
 
-1. 如果事件E和事件F独立，那么F就不能影响E，于是P(E|F)=P(E)。把P(E|F)展开，就成了P(E∩F)/P(F)=P(E)，或者P(E∩F)=P(E)*P(F)，这不就是“两个独立事件同时发生的概率”的计算公式么。
+在很多书中使用字母A、B表示事件，使用P(A|B)表示条件概率，这相对太抽象。我们使用另外一套字母体系：H和E(D)，其中H= hypothesis，E= evidence（或D=data）。这样Bayes的推理过程可以表述为：通过不断的收集证据E来强化对假设事件H的信心。
+
+这种表述方法称为diachronic interpretation，其中diachronic是“随时间变化”的意思。在Bayes理论中，就是指每当我们收集到一个新的证据之后，都可以加入到原有Bayes系统中调整对原有事件的看法（可能是增删改 + - x），事件H的概率会不断调整。
+
+Bayes定理公式如下：
+
+$$
+P(H|E) = \frac{P(H) \cdot P(E|H)}{P(E)}
+$$
+
+公式中的每一项都有一个单独的名字：
+
+1. P(H) ⇒ **先验概率(prior probability)**，又叫基础概率，是无任何条件限制下事件H发生的概率
+
+2. P(H|E) ⇒ **后验概率(posterior probability)**
+
+3. P(E|H) ⇒ **条件似然(conditional likelihood)**， 有时候我自己称之为似然概率：
+	-  **_物以类聚，人以群分_**，如果我们把H与~H看作两类人，比如男人和女人，那么**这两类人针对同一件事情会有不同的看法和倾向**，比如男人可能更喜欢踢足球，而女人可能更喜欢逛街，似然概率描述的就是这两类不同的人针对事件$E_i$表现出的倾向概率
+	- 由于P(E|H)与P(E|~H)是针对两类不同的人的概率，因此它们之间没有任何关系， **P(E|H) + P(E|~H) ≠ 1**
+
+4. P(E) ⇒ 在所有情况下证据E发生的概率，不管事件H发生还是不发生，称为**整体似然(total likelihood)**，因为它起到归一化的作用，因此又称为归一化常量(normalizing constant)
+
+##### 性质分析
+
+在Bayes推理过程中，可以不断加入新证据到Bayes系统中，当各证据$E_i$相互独立时，可以得到如下朴素Bayes分类器速算公式：
+
+ $$
+ P(H|E_1 E_2 \cdots) = \frac{ \frac{P(H)}{P(\overline H)} \cdot \frac{P(E_1|H)}{P(E_1|\overline H)} \cdot \frac{P(E_2|H)}{P(E_2|\overline H)} \times \cdots }{ \frac{P(H)}{P(\overline H)} \cdot \frac{P(E_1|H)}{P(E_1|\overline H)} \cdot \frac{P(E_2|H)}{P(E_2|\overline H)} \times \cdots  + 1} 
+ $$
+
+整个计算过程可以解读为：
+
+ - Posterior odds ratio = Prior odds ratio x Likelihood ratio
+ - **先验比 x 似然比1 x 似然比2 x ...，然后normalize**
+ - 当只存在两种分类目标H与~H时，由于P(H) + P(~H) = 1，因此先验比往往比较容易计算
+
+假定事件E和事件F独立，那么F就不能影响E，于是P(E|F)=P(E)。把P(E|F)展开，就成了P(E∩F)/P(F)=P(E)，或者P(E∩F)=P(E)*P(F)，这不就是“两个独立事件同时发生的概率”的计算公式么。
 
 ---
 #### 举例
