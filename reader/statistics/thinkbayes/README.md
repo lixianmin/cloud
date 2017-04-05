@@ -4,3 +4,4 @@
 1. [ThinkBayes github](https://github.com/AllenDowney/ThinkBayes)
 1. [ThinkBayes Green Tea Press](http://greenteapress.com/wp/think-bayes/)
 1. [Think Bayes in HTML](http://www.greenteapress.com/thinkbayes/html/index.html)
+1. [Bayesian statistics made simple](https://www.youtube.com/watch?v=z_sIDLVisvA)
