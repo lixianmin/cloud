@@ -54,7 +54,7 @@ void remove (ListNode **head, int val)
 ----
 #### 于是为了练习双指针把前两天做的leetcode上相关的习题都改了一遍
 
-#   |Problem    |Solution   |Difficulty	
+|#   |Problem    |Solution   |Difficulty	
 --- |---        |---        |---
 |2	    | [Add Two Numbers](https://leetcode.com/problems/add-two-numbers) | [C++](https://github.com/lixianmin/leetcode/tree/master/algorithms/add-two-numbers) | Medium |
 |19     | [Remove Nth Node From End of List](https://github.com/lixianmin/leetcode/tree/master/algorithms/remove-nth-node-from-end-of-list) | [C++](https://github.com/lixianmin/leetcode/tree/master/algorithms/remove-nth-node-from-end-of-list) | Medium |
