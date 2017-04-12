@@ -1,4 +1,6 @@
 
+
+
 ----
 #### [two star programming](http://wordaligned.org/articles/two-star-programming)
 
@@ -26,7 +28,18 @@ dummy head的缺点是需要在stack上生成ListNode对象，在C语言中没�
 
 因此，如果需要在函数中修改指针本身，就需要使用二级指针（或一级指针的引用），常用于内存分配、删除链表节点等操作。
 
-在链表类问题中，头节点是否为NULL很可能会导致处理逻辑完全迥异，特别是牵扯到链表结构调整的时候（插入、删除等）。由于dummy head与双指针都可以避免头节点为NULL的问题，使代码用统一的方案书写，因此这两种方案都在链表问题中得到了广泛应用，特别是双指针由于不需要分配一个dummy head，因此代码看起来来会更短更简洁。
+在链表类问题中，**头节点是否为NULL很可能会导致处理逻辑完全迥异**，特别是牵扯到链表结构调整的时候（插入、删除等）。由于dummy head与双指针都可以避免头节点为NULL的问题，使代码用统一的方案书写，因此这两种方案都在链表问题中得到了广泛应用，特别是双指针由于不需要分配一个dummy head，因此代码看起来来会更短更简洁。
+
+**二级指针p一定是指向链表内存结构中的某个指针，因此对p设值时一定是使用某种 p = &face->next; 的形式，而不可能设置成某个stack上的指针**，以下面代码为例：
+
+```
+	struct ListNode **p = &head, *face = *p, *toe = *p;
+	......
+	// 1. 由于p指向链表内存结构中的某个指针，因此对p设值时一定是使用某种 p = &face->next; 的形式
+    // 2. 由于toe是一份stack上的内存，因此可以设置*p = toe; 但不能设置p = &toe;
+    p = &face->next;
+    *p = toe;
+```
 
 比如，针对删除链表的头节点的代码：
 
@@ -102,8 +115,9 @@ struct ListNode* list_remove_two_star (struct ListNode *head, int val)
             free (kill);
             break;
         }
-
-        p = &(*p)->next;     // 指针操作->的优先级大于&操作
+        
+        p = &(*p)->next;     // 1. 指针操作->的优先级大于&操作
+					         // 2. 调整p的值时一定是指向某个next指针
     }
 
     return head;
