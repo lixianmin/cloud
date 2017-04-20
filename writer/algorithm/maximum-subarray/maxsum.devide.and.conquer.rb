@@ -16,14 +16,14 @@ def do_max_sum (data, _begin, _end)
     rmax = do_max_sum(data, mid, _end)
     result = lmax > rmax ? lmax : rmax
 
-    lmax, temp = 0, 0
-    (mid-1).downto(0) do |i|
+    lmax, temp = data[mid-1], data[mid-1]
+    (mid-2).downto(_begin) do |i|
         temp += data[i]
         lmax = temp if lmax < temp
     end
 
-    rmax, temp = 0, 0
-    mid.upto(_end-1) do |i|
+    rmax, temp = data[mid], data[mid]
+    (mid+1).upto(_end-1) do |i|
         temp += data[i]
         rmax = temp if rmax < temp
     end
