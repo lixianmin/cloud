@@ -35,10 +35,10 @@
 
 ##### 帧同步buffer机制
 
-帧buffer 		| 延迟		| 卡顿
----				|--- 			|---
+帧buffer 	| 延迟		| 卡顿
+---			|--- 		|---
 帧buffer小	| 延迟低	| 卡顿多
-帧buffer大   | 延迟高	| 卡顿少
+帧buffer大  | 延迟高	| 卡顿少
 
 
 ----------
@@ -72,10 +72,10 @@ GC		| 有	| 无
 
 
 Topic 		| 序列化 	| 内存快照
----			|--- 			|---
-speed		| slow   	| fast
-version	| possible	| impossible
-存盘			| 是			| 否
+---			|--- 		|---
+speed		| slow   	| fast
+version	    | possible	| impossible
+存盘		| 是		| 否
 coding	  	| 无限制	| struct，不能使用虚函数
 版本维护	| 考虑兼容	| 只支持当前版本
 
