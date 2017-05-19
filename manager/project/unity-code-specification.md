@@ -1,12 +1,14 @@
 
 ### Unity客户端开发规范
 
+----
 #### 资源命名
 1. 包括图片、音乐、场景以及其它一切可能需要从服务上下载的资源，文件路径要求全部使用小写字母（linux服务器文件名区分大小写）。
 1. 写代码时命名请使用英文，拼音太土了，对吧？注释可以使用中文，但切记在注释尾部加上英文空格，否则有极大概率引起unity3d编译错误；
 1. 文件编码统一使用utf8，文件换行符统一使用\n换行；
 1. 除非要兼容老代码或拥有非常明确的理由，请遵循命名规则。
 
+----
 #### 代码命名
 ##### 摒除匈牙利命名法
 匈牙利命名法的命名规则带有成员变量的类型信息，这对需要经常重构的代码而言很可能会造成困惑，因为你可能修改了变量的类型但忘记了同步修改变量名：
@@ -25,7 +27,7 @@ float speed;
 bool isPlaying;
 ```
 
-
+----
 #### 类命名规则
 1. 非public的类成员（包括变量与方法）统一以下划线开头，以便与方法参数区分；
 1. 属性成员命名使用大写字母组合；
@@ -40,14 +42,14 @@ class Game : MonoBehaviour
         get;
         private set;
      }
-         
+
     // 当前需要在Unity中操作的MonoBehaviour子类的成员变量必须是public的，不需要带下划线
     public int version = 0;
-    
+
     // private或protected的类成员变量命名以下划线开始，目的是区分成员变量与一般方法参数
-    private GameSession _gameSession; 
+    private GameSession _gameSession;
 }
-     
+
 ```
 
 统一将成员变量放到方法的后面，因为类的使用者通常更关心类有哪个方法可以供使用，而不会在意类的实现细节：
@@ -59,11 +61,11 @@ class Player
     {
         _DoTick();
     }
-    
+
     // proteted, private成员方法记得前面加下划线
     protected virtual void _DoTick (float deltaTime)
     {
-    
+
     }
 
     private int _id;
@@ -71,6 +73,7 @@ class Player
 }
 ```
 
+----
 #### 枚举命名规则
 C#中使用枚举成员时必须通过“枚举名+点号+枚举成员”的形式，如JudgeType type = JudgeType.Perfect;，不再采用C++中以全大写字母组合的方式。
 ```
@@ -85,6 +88,7 @@ public enum JudgeType
 }
 ```
 
+----
 #### 代码风格
 ##### 格式化
 代码格式化使用Microsoft Visual Studio风格，如果你使用MonoDevelop，请按以下方式设置：Preferences --> Source Code --> Code Formatting --> C# source code --> Policy下拉框，选择Microsoft Visual Studio
@@ -102,6 +106,7 @@ public enum JudgeType
         // only one line code;
 ```
 
+----
 ### foreach与循环
 #### 什么情况下foreach会产生gcalloc
 为了描述方便，我们将foreach遍历的对象称为"容器"。foreach并不等同于循环，它至少做了两件事情：
@@ -119,6 +124,7 @@ public enum JudgeType
 2. Unique.SortedTable，是自己写的容器，做了特殊处理的，因此使用foreach无gcalloc；
 3. 其它容器，禁止使用foreach；
 
+----
 #### 内存控制
 
 1. 当进行字符串进行格式化、连接等操作时，优先使用StringBuilder, string.Format(), string.Concat()等，不要直接进行字符串相加，以减少临时对象;
@@ -133,6 +139,7 @@ public enum JudgeType
     - 禁止定义为IDictionary<>这种接口的方式;
     - 禁止使用dict.Keys或dict.Values;
 
+----
 #### 禁止使用的命名空间
 以下命名空间可以在编辑器代码里使用，但在游戏代码中禁止使用
 1. UnityEditor            没啥可说的，编译不过，无法导出；
@@ -140,5 +147,6 @@ public enum JudgeType
 1. System.Xml            导出时会带一个1M大的dll，这个体积实在是太大了，可以考虑使用SmallXmlParser等小库处理；
 1. System.Linq            迭代时会产生大量的临时对象，容易引发GC；
 
+----
 #### 禁止使用的方法
 1. StreamWriter.WriteLine(*)        考虑使用Write('\n')代替，因为windows平台与mac平台产生的换行符不一样，需要保持跨平台性；
