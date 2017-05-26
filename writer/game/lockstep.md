@@ -21,7 +21,9 @@
 ----------
 #### 网络要点
 
-数据层与逻辑层分离，数据层完全与服务器同步一致，逻辑层自己做插值平滑；逻辑帧并不等待客户端的command的，没有服务器数据的话就假定使用上一帧的数据（特别是移动相关的）
+影子跟随算法：数据层与逻辑层分离，数据层完全与服务器同步一致，逻辑层自己做插值平滑；逻辑帧并不等待客户端的command的，没有服务器数据的话就假定使用上一帧的数据（特别是移动相关的）
+
+通常要求网速RTT在100ms以内，一般不超过8人。
 
 1. 无buffer帧同步，数据层0延迟
 2. 不使用P2P
@@ -94,7 +96,30 @@ Cheat 		| Anti-Cheat
 
 
 ----------
-#### 王者荣耀
+#### 守望先锋（状态同步）
+
+1. 服务器帧率20fps， 客户端60fps
+2. favor the shooters：
+	1. 只要你瞄准了，并开枪，基本上应该会击中目标，除非目标躲避了射击（比如：猎空使用了闪现）
+	2. 因为客户端先行，所以客户端的位置和状态会比服务器更靠前，这个距离差反映了信息从服务器传到客户端所需要的时间
+	3. 服务器有一定的缓冲数据，这样可以把下行到服务器的信息处理的更流畅，这个服务器的缓冲区很重要，因为我们不知道客户端的更新频率会不会受到阻碍（路由、硬件、网络抖动）
+	4. 如果服务器没有收到客户端的指令，则服务器会复制一些行为 ---- 服务器预测，比如复制玩家的按键（一直按W前进这种），但这是服务器的预测，服务器说了算
+	4. 如果客户端没有收到服务器的指令，则最终收到时客户端会被服务器中断，拉回来
+	5. 即使客户端收到了服务器指令，也不是直接把法老之鹰绘制在最新更新到的位置上，而是通过插值算法顺滑的更新到最新的位置 （adaptive interpolation delay）
+	6. adaptive interpolation delay：
+		1. 该算法是为大多数情况下，可靠的网络环境（连接稳定、更新频率正常）设计的
+		2. 意味着大多数情况下可以及时的收到服务器的指令
+	7. 把跟你水平相当还有网络延迟相当的人配对在一起
+3. responses 立即响应：
+	1. 按键应该立即得到反馈（本地先行，不等待服务器确认）
+	2. 但如果服务器不同意你的客户端行为（死亡，被眩晕），则会被插值算法迅速拉回
+	3. 除了少数释放时间特别长的技能外，其它技能会立即执行模拟预测：
+		1. 火箭会立即飞出，但不会立即命中
+		2. 延迟的爆炸与伤害
+		3. 要避免“秒杀”这种设计
+
+----------
+#### 王者荣耀（帧同步）
 
 1. RTS --> 减少英雄数 --> 5到3个，变得更像MOBA
 2. Demo （含引擎、框架、后台）2周就做完了，6个月做完第一个版本，2015-08-18上线
@@ -108,6 +133,7 @@ Cheat 		| Anti-Cheat
 	2. Loading时加载了所有东西，所以加载时间长
 6. 单CPU满（发热、降频），其中逻辑消耗占20%左右，但GPU只吃到了30%
 7. 服务器的主频其实不高
+8. 无缓冲无预测的帧同步
 
 ----------
 #### 其它问题
@@ -120,7 +146,8 @@ Cheat 		| Anti-Cheat
 1. [《王者荣耀》技术总监复盘回炉历程：没跨过这三座大山，就是另一款MOBA霸占市场了](http://youxiputao.com/articles/11842)
 2. [【王者荣耀】透视+无CD+无敌外挂分析](http://gslab.qq.com/article-260-1.html)
 3. [游戏中的网络同步机制——Lockstep](http://bindog.github.io/blog/2015/03/10/synchronization-in-multiplayer-networked-game-lockstep/?utm_source=tuicool&utm_medium=referral)
-4. [《守望先锋》技术分享视频：如何处理网络同步与减少网络迟疑](http://mp.weixin.qq.com/s?__biz=MjM5NTMxNTU0MQ==&mid=2649869814&idx=1&sn=c8da90fbfe553d9a434288d81f972a87&scene=2&srcid=07056E5ckMN3MZDBmRy33qoA&from=timeline&isappinstalled=0#wechat_redirect)
+4. [《守望先锋》技术分享视频：如何处理网络同步与减少网络迟疑（状态同步）](http://mp.weixin.qq.com/s?__biz=MjM5NTMxNTU0MQ==&mid=2649869814&idx=1&sn=c8da90fbfe553d9a434288d81f972a87&scene=2&srcid=07056E5ckMN3MZDBmRy33qoA&from=timeline&isappinstalled=0#wechat_redirect)
 5. [网络游戏的移动同步（五）帧同步算法](http://www.zhust.com/index.php/2015/08/%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%90%8C%E6%AD%A5%EF%BC%88%E4%BA%94%EF%BC%89%E5%B8%A7%E5%90%8C%E6%AD%A5%E7%AE%97%E6%B3%95/)
-
-
+6. [帧锁定同步算法](http://www.skywind.me/blog/archives/131)
+7. [网络游戏同步法则](http://www.skywind.me/blog/archives/112)
+8. [影子跟随算法（2007年老文一篇）](http://www.skywind.me/blog/archives/1145)
