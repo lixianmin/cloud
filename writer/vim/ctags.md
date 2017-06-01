@@ -21,6 +21,13 @@ ctags对lua的支持很弱，需要手动自定义规则：
 
 其它操作系统可以参考[ctags lua规则增强](https://gist.github.com/yongkangchen/10120546)
 
+支持识别：
+
+1. function xxx.yyy() end
+2. function xxx:yyy() end
+3. modules("xxx",...)
+4. 全局变量
+
 ----
 #### reference
 
