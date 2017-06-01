@@ -131,6 +131,10 @@ public enum JudgeType
 1. 由于struct的内存在栈上分配，不会引发GC，因此在方法内部使用而不需要长住内存的对象，优先考虑使用struct。使用struct传递参数时可以考虑使用ref，以回避copy代价；
 1. 不要使用return new List<>()这种东西，考虑使用ref传参，或者将该List<>作为一个类的成员变量，并通过Clear()来维护数据；
 1. 当心lambda表示式使用，不要让它变成一个closure。lambda表达式通常会编译成一个private方法，但如果lambda捕获了一个局部变量， 那它就不再是一个private方法， 它变成了一个closure， 此时，在每次调用lambda表达式的时候都会生成一个delegate对象；
+1. 避免创造泛型类，这在il2cpp时可能会导出大量的新代码
+1. 能使用Hashtable的地方，就不要使用Dictionary，适合于使用Hashtable的建议标准为：
+    - key是string（或其它class，而不是struct）
+    - 从表中获取、遍历时可以做到无gc
 1. 使用Dictionary时：
     - 禁止使用foreach遍历，理由不再重述；
     - 不要使用Dictionary<int, Cache<T>>这种泛型内套泛型的变量声明方式，IOS上AOT会出问题;
@@ -140,7 +144,13 @@ public enum JudgeType
     - 禁止使用dict.Keys或dict.Values;
 
 ----
+#### 设计建议
+
+1. 尽可能的避免使用Property，使用GetXXX()与SetXXX()方法，这会解决命名冲突的问题
+
+----
 #### 禁止使用的命名空间
+
 以下命名空间可以在编辑器代码里使用，但在游戏代码中禁止使用
 1. UnityEditor            没啥可说的，编译不过，无法导出；
 1. System.Reflection    反射的东西，速度太慢，手机跑不动；
