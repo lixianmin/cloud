@@ -16,6 +16,7 @@ prefix  | description   | example
 ---     |---            |---
 [new] content(TB号)  | [new]代表新功能   | [new] 排行榜奖励功能开发
 [fix] content(TB号)  | [fix]代表bug修正  | [fix] 竞技场-剩余血量不对.(TL-15546)
+[refactor] content(TB号)| [refactor]代表重构 | [refactor] 重构资源加载部分代码
 [update] content(TB号)| [update]代表功能更新 | [update] 打包-ios buildnumber 1.41 -> 1.42
 
 ---
