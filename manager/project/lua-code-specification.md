@@ -20,25 +20,27 @@
 #### Define and Usage 定义与使用
 
 - `File` and `Package` 文件和包
-```
-	-- Define: 文件名唯一, 全大写单词首字母
-	PackageName.lua
-	ClassName.lua
-	EnumName.lua
-	DataName.lua
 
-	-- Usage
-	local PackageName = require "PackageName"
+```
+    -- Define: 文件名唯一, 全大写单词首字母
+    PackageName.lua
+    ClassName.lua
+    EnumName.lua
+    DataName.lua
+
+    -- Usage
+    local PackageName = require "PackageName"
 
 ```
 
 - `Enum` 枚举类型
+
 ```
-	local EnumName =
-	{
-		EnumValueName1 = 1,
-	    EnumValueName2 = 2,
-	}
+    local EnumName =
+    {
+        EnumValueName1 = 1,
+        EnumValueName2 = 2,
+    }
 ```
 
 ---
@@ -47,7 +49,7 @@
 - `Function` 函数
 
 ```
-	-- Define
+    -- Define
     local function PublicFunctionName (argName1, argName2, ...)
         -- TODO: Do something
     end
@@ -56,31 +58,31 @@
         -- TODO: Do something
     end
 
-	-- Usage
+    -- Usage
     PublicFunctionName(argName1, argName2, ...)
     _PrivateFunctionName(argName1, argName2, ...)
 ```
 
 - `Method` 成员方法
 ```
-	-- Define
+    -- Define
     function ClassName:PublicMethodName(argName1, argName2, ...)
-		-- TODO: Do something
+        -- TODO: Do something
     end
 
     function ClassName:_PrivateMethodName(argName1, argName2, ...)
         -- TODO: Do something
     end
 
-	-- Usage
-	self:MethodName(argName1, argName2, ...)
+    -- Usage
+    self:MethodName(argName1, argName2, ...)
 
 ```
 
 - `Static Method` 静态成员方法
 
 ```
-	-- Define
+    -- Define
     function ClassName.PublicMethodName (argName1, argName2, ...)
         -- TODO: Do something
     end
@@ -89,7 +91,7 @@
         -- TODO: Do something
     end
 
-	-- Usage
+    -- Usage
     ClassName.MethodName (argName1, argName2, ...)
 ```
 
@@ -98,10 +100,10 @@
 
 -  `Variable` 变量
 ```
-	-- variable变量
-	variableName = XXXXXX
+    -- variable变量
+    variableName = XXXXXX
 
-	-- Const Variable 常量
+    -- Const Variable 常量
     ConstVariableName = XXXXXX
 
     -- Global Variable 全局变量
@@ -111,24 +113,24 @@
 - `Member` 成员变量
 
 ```
-	-- Define
-	self.PublicVariableName = XXXXXX
-	self._privateVariableName = XXXXXX
+    -- Define
+    self.PublicVariableName = XXXXXX
+    self._privateVariableName = XXXXXX
 
-	-- Usage
-	self.PublicVariableName
-	self._privateVariableName
+    -- Usage
+    self.PublicVariableName
+    self._privateVariableName
 ```
 
 - `Static Member` 静态成员变量
 ```
-	-- Define
-	ClassName.PublicVariableName = XXXXXX
-	ClassName._privateVariableName = XXXXXX
+    -- Define
+    ClassName.PublicVariableName = XXXXXX
+    ClassName._privateVariableName = XXXXXX
 
-	-- Usage
-	ClassName.PublicVariableName
-	ClassName._privateVariableName
+    -- Usage
+    ClassName.PublicVariableName
+    ClassName._privateVariableName
 ```
 
 ---
@@ -147,7 +149,7 @@
 ]]
 ```
 
- -  `TODO` 功能注释
+-  `TODO` 功能注释
 ```
 -- TODO: XXXXXX
 ```
@@ -161,74 +163,77 @@
 ####  Class 类
 
 -  Sample Class `SampleClass.lua`
+
 ```
-	-- TODO: require package
-	local BasicClass = require "BasicClass"
+    -- TODO: require package
+    local BasicClass = require "BasicClass"
 
-	-- TODO: class define
-	local This = BasicClass:subclass -- class interitance
-	{
-	    StaticVariable = nil, -- public static member variable
-	    _privateStaticVariable = {},  -- private static member variable
-	    ConstVariable = "Sample Const Variable", -- const variable
-	}
+    -- TODO: class define
+    local This = BasicClass:subclass -- class interitance
+    {
+        StaticVariable = nil, -- public static member variable
+        _privateStaticVariable = {},  -- private static member variable
+        ConstVariable = "Sample Const Variable", -- const variable
+    }
 
-	-- TODO: public static member function
-	function This.GetStaticVariable (arg, ...)
-	    return This._GetStaticVariable(arg, ...)
-	end
+    -- TODO: public static member function
+    function This.GetStaticVariable (arg, ...)
+        return This._GetStaticVariable(arg, ...)
+    end
 
-	-- TODO: internal static member function
-	function This._GetStaticVariable (arg, ...)
-	    print(This.ConstVariable)
-	    if not This.StaticVariable then -- test StaticVariable is nil
-	        return This._InternalStaticVariable
-	    end
-	    return nil
-	end
+    -- TODO: internal static member function
+    function This._GetStaticVariable (arg, ...)
+        print(This.ConstVariable)
+        if not This.StaticVariable then -- test StaticVariable is nil
+            return This._InternalStaticVariable
+        end
+        return nil
+    end
 
-	-- TODO: class constructor
-	function This:initialize (arg, ...)
-	    self.PublicMember = arg
-	    self._privateMember = {}
-	end
+    -- TODO: class constructor
+    function This:initialize (arg, ...)
+        self.PublicMember = arg
+        self._privateMember = {}
+    end
 
-	-- TODO: public member function
-	function This:GetMember(arg, ...)
-	    return self:_GetMember(arg, ...)
-	end
+    -- TODO: public member function
+    function This:GetMember(arg, ...)
+        return self:_GetMember(arg, ...)
+    end
 
-	-- TODO: private member function
-	function This:_GetMember(arg, ...)
-	    print(This.ConstVariable) -- use const variable
-	    if self.PublicMember then -- test publicMember is not nil
-	        return self._privateMember
-	    end
-	    return nil
-	end
+    -- TODO: private member function
+    function This:_GetMember(arg, ...)
+        print(This.ConstVariable) -- use const variable
+        if self.PublicMember then -- test publicMember is not nil
+            return self._privateMember
+        end
+        return nil
+    end
 
-	return This
+    return This
 ```
 
 - Test Sample Class
-```
-	-- TODO: Sample Code
-	local SampleClass = require("SampleClass")
 
-	SampleClass.GetStaticVariable() -- call public static member function
-	local sample = SampleClass:new(0) -- new SampleClass
-	sample:GetMember() -- call public member function
+```
+    -- TODO: Sample Code
+    local SampleClass = require("SampleClass")
+
+    SampleClass.GetStaticVariable() -- call public static member function
+    local sample = SampleClass:new(0) -- new SampleClass
+    sample:GetMember() -- call public member function
 ```
 
 ---
 #### 使用规范
+
 - 废弃`module`函数
         - 由于`module`函数有缺陷, 并且Lua后续的版本已经废弃`module`, 因此我们也不使用`module`
         - 对`module`函数的讨论 http://lua-users.org/wiki/LuaModuleFunctionCritiqued
 
 - 使用`require`函数跨文件引用
-	-`require`函数被重写, 不支持交叉引用
+    -`require`函数被重写, 不支持交叉引用
 
 - Lua OOP 面向对象编程
-	- http://lua-users.org/wiki/ObjectOrientedProgramming
+    - http://lua-users.org/wiki/ObjectOrientedProgramming
 
