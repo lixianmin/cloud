@@ -48,7 +48,7 @@
 
 简单说来，所有的需要处理本地化的字符串文本，定义时使用LocaleText类型，不要直接使用string类型。
 
-关于本地化，更加详细的介绍请参考: [locale](cloud/manager/project/metadata-specification.md)
+关于本地化，更加详细的介绍请参考: [locale](locale.md)
 
 ---
 #### 如果某个Template的数据成员只在逻辑中用到但不想序列到文件中怎么办?
