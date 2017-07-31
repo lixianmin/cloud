@@ -65,11 +65,13 @@ XmlLocaleTextTranslator的格式如下：
 ```
 
 ---
-#### UI上的广西如何标记本地化
+#### UI上的如何标记本地化
 
 1. 对于所有需要执行本地化的文本控件，制作UI窗体时务必使用自定义控件：UIText
 2. 在UIText的Inspector尾部，有guid一项，凡需要翻译的静态文本都需要填入guid，如果不需要翻译的则不用填
 3. 凡填入guid的UIText控件，在窗体打开时，程序会按guid找到对应的翻译文本，并替换UIText控件上默认加载的文本
+4. UI修改完毕后，在ui的prefab根节点上，找到UISerializer脚本（如果没有则添加），右键点Seralize Prefab菜单项
+5. 导出prefab为ab文件给程序用
 
 ---
 #### Lua中如何处理多国语言
@@ -106,3 +108,4 @@ local dict =
 
 return dict
 ```
+
