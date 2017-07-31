@@ -43,7 +43,7 @@ public class LocaleTextExample : Template
 ```
 
 ---
-#### metadata如何翻译多国语言
+#### metadata如何翻译多国语言
 
 1. metadata中LocaleText数据会被单独导出一个文件，默认文件名locale.zh_cn.raw，是简体中文本地化数据
 2. 如果要对其它国家的语言进行本地化处理，则将需要将对应翻译反的配置xml**按国家**放到独立的目录中，以美国英语为例，创建新目录locale.en_us
@@ -69,7 +69,7 @@ XmlLocaleTextTranslator的格式如下：
 
 1. 对于所有需要执行本地化的文本控件，制作UI窗体时务必使用自定义控件：UIText
 2. 在UIText的Inspector尾部，有guid一项，凡需要翻译的静态文本都需要填入guid，如果不需要翻译的则不用填
-3. 凡填入guid的UIText控件，在窗体打开时，程序会按guid找到对应的翻译文本，并替换UIText控件上默认加载的文本
+3. 凡填入guid的UIText控件，在窗体打开时，程序会按guid找到对应的翻译文本，并替换UIText控件上默认加载的文本
 
 ---
 #### Lua中如何处理多国语言
