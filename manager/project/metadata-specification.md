@@ -12,11 +12,27 @@
 
 比如你要定义一个表示武器的模板，我们假定命名为WeaponItemTemplate：
 
-1. 定义WeaponItemTemplate为Template类的子类；
+1. 定义WeaponItemTemplate为Template类的子类，并标记属性[System.Serializable]；
 1. 为WeaponItemTemplate填充你所要的数据成员，注意只支持public成员变量的序列化（而private成员变量与properties并不考虑支持）；
 1. 通过unity3d编辑中的菜单项  *Metadata-> Generate Auto Code，补全序列化逻辑；
 
 定义Config子类的方法完全相同。
+
+以ApplicationConfig为例：
+
+```
+    #if UNITY_EDITOR
+    [Export(ExportFlags.ExportRaw)]
+    [System.Serializable]
+    #endif
+    public class ApplicationConfig : Config
+    {
+        public bool runInBackground;
+        public int targetFrameRate;
+        public long maximumAvailableDiskSpace;
+        public int concurrentLoadCount;
+    }
+```
 
 ---
 #### Metadata支持哪些数据类型？
@@ -30,7 +46,9 @@
 ---
 #### 如何应对本地化？
 
-所有的需要处理本地化的字符串文本，定义时使用LocaleText类型，不要直接使用string类型。
+简单说来，所有的需要处理本地化的字符串文本，定义时使用LocaleText类型，不要直接使用string类型。
+
+关于本地化，更加详细的介绍请参考: [locale](cloud/manager/project/metadata-specification.md)
 
 ---
 #### 如果某个Template的数据成员只在逻辑中用到但不想序列到文件中怎么办?
@@ -53,3 +71,4 @@
 3. 只在lua中使用的metadata类型，建议放到Editor目录中，这样游戏发布时不会带有相关的C#代码，有利于在线更新
 4. ExportFlags属性（attribute）建议使用UNITY_EIDTOR宏包起来，以减少最终游戏代码
 
+1. 定义WeaponItemTemplate为Template类的子类；
