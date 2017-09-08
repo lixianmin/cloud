@@ -144,10 +144,12 @@ Cheat 		| Anti-Cheat
 ----------
 #### Reference
 1. [《王者荣耀》技术总监复盘回炉历程：没跨过这三座大山，就是另一款MOBA霸占市场了](http://youxiputao.com/articles/11842)
-2. [【王者荣耀】透视+无CD+无敌外挂分析](http://gslab.qq.com/article-260-1.html)
+1. [【王者荣耀】透视+无CD+无敌外挂分析](http://gslab.qq.com/article-260-1.html)
+1. [从《王者荣耀》谈游戏的帧同步](https://mp.weixin.qq.com/s?__biz=MzA4MDc5OTg5MA==&mid=2650595000&idx=1&sn=a5dcf715bbb05974b83c0a46c83931cd&chksm=8796cf45b0e1465308c925b6e6bc20ae9eea51b055b83eeea1b5eaf768eba3745f5cfe7695a0&mpshare=1&scene=1&srcid=0908p4HoMZy1FKv3j6UNCygl&key=5eaf808b4d91a6b91a3526583019f48440fc6fd6d4cd9586ca1d7c8fbc3d66381b924264b1d1f893888d63a393caefa707a4f26f3d31c4fe05526c86c830781c7158cdca06387b9729ddb95650078273&ascene=0&uin=MTU0NDI4MDE4MA%3D%3D&devicetype=iMac17%2C1+OSX+OSX+10.12.5+build(16F73)&version=12020110&nettype=WIFI&fontScale=100&pass_ticket=eSPQJVhDFk9932pH3RfLobgYK%2Fdd3aloMBXu9nU%2BlizPIDIbVSe54a0T78oAKTd6)
 3. [游戏中的网络同步机制——Lockstep](http://bindog.github.io/blog/2015/03/10/synchronization-in-multiplayer-networked-game-lockstep/?utm_source=tuicool&utm_medium=referral)
 4. [《守望先锋》技术分享视频：如何处理网络同步与减少网络迟疑（状态同步）](http://mp.weixin.qq.com/s?__biz=MjM5NTMxNTU0MQ==&mid=2649869814&idx=1&sn=c8da90fbfe553d9a434288d81f972a87&scene=2&srcid=07056E5ckMN3MZDBmRy33qoA&from=timeline&isappinstalled=0#wechat_redirect)
 5. [网络游戏的移动同步（五）帧同步算法](http://www.zhust.com/index.php/2015/08/%E7%BD%91%E7%BB%9C%E6%B8%B8%E6%88%8F%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%90%8C%E6%AD%A5%EF%BC%88%E4%BA%94%EF%BC%89%E5%B8%A7%E5%90%8C%E6%AD%A5%E7%AE%97%E6%B3%95/)
 6. [帧锁定同步算法](http://www.skywind.me/blog/archives/131)
 7. [网络游戏同步法则](http://www.skywind.me/blog/archives/112)
 8. [影子跟随算法（2007年老文一篇）](http://www.skywind.me/blog/archives/1145)
+
