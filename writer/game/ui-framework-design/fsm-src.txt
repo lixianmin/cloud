@@ -1,0 +1,31 @@
+
+graph TD
+
+NoneState[<mark>NoneState]
+NoneState --> |OnOpenWindow| LoadState
+
+LoadState((LoadState))
+LoadState --> |OnCloseWindow| NoneState
+LoadState --> |Loading Done<br/><br/><b>OnLoaded|OpenAnimationState
+LoadState --> |Loading Failure | FailureState
+
+OpenAnimationState((OpenAnimationState))
+OpenAnimationState --> |Animation Done| OpenedState
+OpenAnimationState --> |Animation Done <br/>& OnCloseWindow| CloseAnimationState
+OpenAnimationState --> |No Animation| OpenedState
+
+OpenedState[<b>OnOpened</b><br/>OpenedState<br/><b>OnClosing</b>]
+OpenedState --> |OnOpenWindow| ActivateWindow><b>OnDeactivating<br/>OnActivated<b/>]
+OpenedState --> |OnCloseWindow| CloseAnimationState
+
+CloseAnimationState((CloseAnimationState))
+CloseAnimationState --> |Animation Done| ClosedState
+CloseAnimationState --> |Animation Done<br/>& OnOpenWindow| OpenAnimationState
+CloseAnimationState --> |No Animation| ClosedState
+
+ClosedState --> |Cachable<br/>& OnOpenWindow| OpenAnimationState
+ClosedState --> |Not Cachable| UnloadState
+
+UnloadState[<b>OnUnloading</b><br/>UnloadState]
+UnloadState--> NoneState
+FailureState --> NoneState
