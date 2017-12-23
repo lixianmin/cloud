@@ -124,9 +124,9 @@ UI框架设计之初并没有引入FSM，虽然FSM在游戏设计中是一种常
 
 3. 粗体的OnLoaded, OnOpened等是UI框架的回调事件
 
-![ui-fsm-代码在下面](https://raw.githubusercontent.com/lixianmin/cloud/master/writer/game/ui-framework-design/fsm.png)
+![fsm-代码在下面](https://raw.githubusercontent.com/lixianmin/cloud/master/writer/game/ui-framework-design/fsm.png)
 
-```
+<!---
 graph TD
 
 NoneState[<mark>NoneState]
@@ -158,7 +158,7 @@ UnloadState[<b>OnUnloading</b><br/>UnloadState]
 UnloadState--> NoneState
 FailureState --> NoneState
 
-```
+-->
 
 ---
 #### 控件（Control）支持
