@@ -62,6 +62,7 @@ namespace ECS
             return false;
         }
 
+        public static event Action<IComponent> OnComponentCreated;
         private readonly Hashtable _components = new Hashtable();
     }
 }
