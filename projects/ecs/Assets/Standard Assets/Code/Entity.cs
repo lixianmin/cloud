@@ -34,6 +34,10 @@ namespace ECS
                     }
 
                     _components.Add(type, component);
+                    if (null != OnComponentCreated)
+                    {
+                        OnComponentCreated(component);
+                    }
                     return component;
                 }
             }
