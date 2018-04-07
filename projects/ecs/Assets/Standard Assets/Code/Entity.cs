@@ -21,10 +21,10 @@ namespace ECS
                 var component = Activator.CreateInstance(type) as IComponent;
                 if (null != component)
                 {
-                    var hasEntity = component as IHaveEntity;
-                    if (null != hasEntity)
+                    var haveEntity = component as IHaveEntity;
+                    if (null != haveEntity)
                     {
-                        hasEntity.SetEntity(this);
+                        haveEntity.SetEntity(this);
                     }
 
                     var initializable = component as IInitalizable;
