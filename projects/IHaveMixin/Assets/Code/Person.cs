@@ -10,7 +10,7 @@ using System;
 
 namespace Unique
 {
-    public class Person
+    public class Person : IHaveWallet
     {
         public Wallet GetWallet ()
 		{

@@ -12,6 +12,12 @@ namespace Unique
 {
     public class Game
     {
-       
+        public void TestMixin ()
+        {
+            var person = new Person();
+            person.AddMoneyEx(300);
+            person.SpendMoneyEx(20);
+            var balance = person.GetBalanceEx();
+        }
     }
 }

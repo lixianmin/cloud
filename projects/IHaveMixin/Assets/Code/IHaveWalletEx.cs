@@ -12,14 +12,53 @@ namespace Unique
 {
     public static class IHaveWalletEx
     {
-        public static void AddMoneyEx (this Wallet wallet, int count)
+        public static void AddMoneyEx(this IHaveWallet self, int count)
         {
-            if (null != wallet)
+            if (null != self)
             {
-                var total = wallet.GetMoney();
-                total += count;
-                wallet.SetMoney(total);
+                var wallet = self.GetWallet();
+                if (null != wallet)
+                {
+                    var total = wallet.GetMoney();
+                    total += count;
+                    wallet.SetMoney(total);
+                }
             }
+        }
+
+        public static bool SpendMoneyEx(this IHaveWallet self, int count)
+        {
+            if (null != self && count > 0)
+            {
+                var wallet = self.GetWallet();
+                if (null != wallet)
+                {
+                    var total = wallet.GetMoney();
+                    if (total > count)
+                    {
+                        total -= count;
+                        wallet.SetMoney(total);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static int GetBalanceEx(this IHaveWallet self)
+        {
+            if (null != self)
+            {
+                var wallet = self.GetWallet();
+                if (null != wallet)
+                {
+                    var total = wallet.GetMoney();
+                    return total;
+                }
+            }
+
+            return 0;
         }
     }
 }
