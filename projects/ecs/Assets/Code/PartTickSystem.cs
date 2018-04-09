@@ -9,25 +9,25 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections.Generic;
 
-namespace ECS
+namespace Unique
 {
-    internal class ComponentTickSystem
+    internal class PartTickSystem
     {
-        static ComponentTickSystem()
+        static PartTickSystem()
         {
 
         }
 
-        private ComponentTickSystem()
+        private PartTickSystem()
         {
-            Entity.OnComponentCreated += _OnComponentCreated;
+            Entity.OnPartCreated += _OnPartCreated;
         }
 
-        private void _OnComponentCreated(IComponent component)
+        private void _OnPartCreated(IPart part)
         {
-            if (component is ITickable && component is IIsDisposed)
+            if (part is ITickable && part is IIsDisposed)
             {
-                _AddTickComponent(component);
+                _AddTickPart(part);
             }
         }
 
@@ -35,7 +35,7 @@ namespace ECS
         {
             if (_hasNewPart)
             {
-                Array.Sort(_typeIndices, _tickComponents);
+                Array.Sort(_typeIndices, _tickParts);
                 _hasNewPart = false;
             }
 
@@ -55,10 +55,10 @@ namespace ECS
                 var hasDisposed = false;
                 for (int i = 0; i < count; ++i)
                 {
-                    var component = _tickComponents[i] as IIsDisposed;
-                    if (!component.IsDisposed())
+                    var part = _tickParts[i] as IIsDisposed;
+                    if (!part.IsDisposed())
                     {
-                        (component as ITickable).Tick();
+                        (part as ITickable).Tick();
                     }
                     else
                     {
@@ -77,8 +77,8 @@ namespace ECS
             int i;
             for (i = 0; i < _size; i++)
             {
-                var component = _tickComponents[i] as IIsDisposed;
-                if (component.IsDisposed())
+                var part = _tickParts[i] as IIsDisposed;
+                if (part.IsDisposed())
                 {
                     break;
                 }
@@ -92,10 +92,10 @@ namespace ECS
             int j;
             for (j = i + 1; j < _size; j++)
             {
-                var component = _tickComponents[i] as IIsDisposed;
-                if (component.IsDisposed())
+                var part = _tickParts[i] as IIsDisposed;
+                if (part.IsDisposed())
                 {
-                    _tickComponents[i] = _tickComponents[j];
+                    _tickParts[i] = _tickParts[j];
                     _typeIndices[i] = _typeIndices[j];
 
                     ++i;
@@ -105,7 +105,7 @@ namespace ECS
             var removedCount = j - i;
             if (removedCount > 0)
             {
-                Array.Clear(_tickComponents, i, removedCount);
+                Array.Clear(_tickParts, i, removedCount);
 
                 for (int k= 0; k < removedCount; ++k)
                 {
@@ -116,15 +116,15 @@ namespace ECS
             _size = i;
         }
 
-        private void _AddTickComponent(IComponent component)
+        private void _AddTickPart(IPart part)
         {
             if (_size == _capacity)
             {
                 _capacity <<= 1;
-                var tickParts = new IComponent[_capacity];
+                var tickParts = new IPart[_capacity];
                 var typeIndices = new int[_capacity];
 
-                Array.Copy(_tickComponents, 0, tickParts, 0, _size);
+                Array.Copy(_tickParts, 0, tickParts, 0, _size);
                 Array.Copy(_typeIndices, 0, typeIndices, 0, _size);
 
                 for (int i= _size; i< _capacity; ++i)
@@ -132,12 +132,12 @@ namespace ECS
                     typeIndices[i] = _kMaxTypeIndex;
                 }
 
-                _tickComponents = tickParts;
+                _tickParts = tickParts;
                 _typeIndices = typeIndices;
             }
 
-            _tickComponents[_size] = component;
-            _typeIndices[_size] = ComponentTypeIndices.SetDefaultTypeIndex(component.GetType());
+            _tickParts[_size] = part;
+            _typeIndices[_size] = PartTypeIndices.SetDefaultTypeIndex(part.GetType());
             ++_size;
 
             _hasNewPart = true;
@@ -145,11 +145,11 @@ namespace ECS
 
         private const int _kMaxTypeIndex = 0x850506;
         private int[] _typeIndices = new int[]{_kMaxTypeIndex, _kMaxTypeIndex, _kMaxTypeIndex, _kMaxTypeIndex};
-        private IComponent[] _tickComponents = new IComponent[4];
+        private IPart[] _tickParts = new IPart[4];
         private int _capacity = 4;
         private int _size = 0;
         private bool _hasNewPart;
 
-        public static readonly ComponentTickSystem Instance = new ComponentTickSystem();
+        public static readonly PartTickSystem Instance = new PartTickSystem();
     }
 }

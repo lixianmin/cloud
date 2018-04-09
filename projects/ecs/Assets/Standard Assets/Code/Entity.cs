@@ -10,55 +10,55 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections;
 
-namespace ECS
+namespace Unique
 {
     public class Entity
     {
-        public IComponent AddComponent(Type type)
+        public IPart AddPart(Type type)
         {
             if (null != type)
             {
-                var component = Activator.CreateInstance(type) as IComponent;
-                if (null != component)
+                var part = Activator.CreateInstance(type) as IPart;
+                if (null != part)
                 {
-                    var haveEntity = component as IHaveEntity;
+                    var haveEntity = part as IHaveEntity;
                     if (null != haveEntity)
                     {
                         haveEntity.SetEntity(this);
                     }
 
-                    var initializable = component as IInitalizable;
+                    var initializable = part as IInitalizable;
                     if (null != initializable)
                     {
                         initializable.Initalize();
                     }
 
-                    _components.Add(type, component);
-                    if (null != OnComponentCreated)
+                    _parts.Add(type, part);
+                    if (null != OnPartCreated)
                     {
-                        OnComponentCreated(component);
+                        OnPartCreated(part);
                     }
-                    return component;
+                    return part;
                 }
             }
 
             return null;
         }
 
-        public bool RemoveComponent(Type type)
+        public bool RemovePart(Type type)
         {
             if (null != type)
             {
-                var component = _components[type];
-                if (null != component)
+                var part = _parts[type];
+                if (null != part)
                 {
-                    var disposable = component as IDisposable;
+                    var disposable = part as IDisposable;
                     if (null != disposable)
                     {
                         disposable.Dispose();
                     }
 
-                    _components.Remove(type);
+                    _parts.Remove(type);
                     return true;
                 }
             }
@@ -66,7 +66,7 @@ namespace ECS
             return false;
         }
 
-        public static event Action<IComponent> OnComponentCreated;
-        private readonly Hashtable _components = new Hashtable();
+        public static event Action<IPart> OnPartCreated;
+        private readonly Hashtable _parts = new Hashtable();
     }
 }

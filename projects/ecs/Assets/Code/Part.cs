@@ -8,9 +8,9 @@ Copyright (C) - All Rights Reserved
 
 using System;
 
-namespace ECS
+namespace Unique
 {
-    public class Component : IInitalizable, IDisposable, IIsDisposed, IHaveEntity
+    public class Part : IInitalizable, IDisposable, IIsDisposed, IHaveEntity
     {
         void IInitalizable.Initalize()
         {

@@ -9,9 +9,9 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections.Generic;
 
-namespace ECS
+namespace Unique
 {
-    public static class ComponentTypeIndices
+    public static class PartTypeIndices
     {
         public static int SetDefaultTypeIndex(Type type)
         {

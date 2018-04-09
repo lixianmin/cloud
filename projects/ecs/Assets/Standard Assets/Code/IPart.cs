@@ -6,9 +6,9 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-namespace ECS
+namespace Unique
 {
-    public interface IComponent
+    public interface IPart
     {
         
     }
