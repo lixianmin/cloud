@@ -10,11 +10,12 @@ using System;
 
 namespace Unique
 {
-    public class Part : IInitalizable, IDisposable, IIsDisposed, IHaveEntity
+    public class Part : IPart, IInitPart, IDisposable, IIsDisposed
     {
-        void IInitalizable.Initalize()
+        void IInitPart.InitPart(Entity entity)
         {
-            DoInitialize();
+            _entity = entity;
+            _DoInitPart();
         }
 
         void IDisposable.Dispose()
@@ -25,7 +26,7 @@ namespace Unique
             }
 
             _isDisposed = true;
-            DoDispose();
+            _DoDispose();
         }
 
         public bool IsDisposed()
@@ -38,13 +39,8 @@ namespace Unique
             return _entity;
         }
 
-        void IHaveEntity.SetEntity(Entity entity)
-        {
-            _entity = entity;
-        }
-
-        protected virtual void DoInitialize() { }
-        protected virtual void DoDispose() { }
+        protected virtual void _DoInitPart() { }
+        protected virtual void _DoDispose() { }
 
         private Entity _entity;
         private bool _isDisposed;

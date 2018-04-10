@@ -8,8 +8,8 @@ Copyright (C) - All Rights Reserved
 
 namespace Unique
 {
-    public interface IInitalizable
+    public interface IInitPart
     {
-        void Initalize();
+        void InitPart(Entity entity);
     }
 }

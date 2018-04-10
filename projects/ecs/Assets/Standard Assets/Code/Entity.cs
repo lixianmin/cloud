@@ -21,16 +21,10 @@ namespace Unique
                 var part = Activator.CreateInstance(type) as IPart;
                 if (null != part)
                 {
-                    var haveEntity = part as IHaveEntity;
-                    if (null != haveEntity)
+                    var initPart = part as IInitPart;
+                    if (null != initPart)
                     {
-                        haveEntity.SetEntity(this);
-                    }
-
-                    var initializable = part as IInitalizable;
-                    if (null != initializable)
-                    {
-                        initializable.Initalize();
+                        initPart.InitPart(this);
                     }
 
                     _parts.Add(type, part);
@@ -64,6 +58,17 @@ namespace Unique
             }
 
             return false;
+        }
+
+        public IPart GetPart(Type type)
+        {
+            if (null != type && null != _parts)
+            {
+                var part = _parts[type] as IPart;
+                return part;
+            }
+
+            return null;
         }
 
         public static event Action<IPart> OnPartCreated;
