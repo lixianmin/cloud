@@ -22,7 +22,7 @@ namespace Client
             var testCount = 10000;
             var tableSize = 20;
 
-            var types = TypeTools.EnumerateTypes().Take(testCount).ToArray();
+            var types = TestTools.EnumerateTypes().Take(testCount).ToArray();
             var typeNames = (from type in types select type.Name).ToArray();
 
             var forceFullCollection = false;

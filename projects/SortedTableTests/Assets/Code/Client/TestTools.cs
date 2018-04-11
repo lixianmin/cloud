@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Client
 {
-    public static class TypeTools
+    public static class TestTools
     {
         public static IEnumerable<Type> EnumerateTypes()
         {

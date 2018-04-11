@@ -15,24 +15,27 @@ namespace Client
     {
         private void Start()
         {
-            _InitContainers();
+            var size = 50;
+            _InitContainers(size);
 
             for (int i = 0; i < 10; ++i)
             {
-                _OneTest(10000);
+                _OneTest(5000);
             }
         }
 
-        private void _InitContainers()
+        private void _InitContainers(int size)
         {
-            var size = 100;
-            _typeArray = TypeTools.EnumerateTypes().Take(size).ToArray();
+            _typeArray = TestTools.EnumerateTypes().Take(size).ToArray();
+            
+            _sortedTable = new SortedTable<Type, object>(size, TypeComparer.Instance);
             _dict = new Dictionary<Type, object>(size);
             _hashtable = new Hashtable(size);
 
             for (int i = 0; i < size; ++i)
             {
-                var type = _typeArray[i];
+                var type    = _typeArray[i];
+                _sortedTable[type]  = type;
                 _dict[type] = type;
                 _hashtable[type] = type;
             }
@@ -46,14 +49,15 @@ namespace Client
         private void _OneTest(int repeat)
         {
             var typeArrayTime = _RunByWatch(repeat, () => _TestTypeArray());
+            var sortedTableTime = _RunByWatch(repeat, () => _TestSortedTable()) - typeArrayTime;
             var dictTime = _RunByWatch(repeat, () => _TestDict()) - typeArrayTime;
             var hashtableTime = _RunByWatch(repeat, () => _TestHashtable()) - typeArrayTime;
 
-            UnityEngine.Debug.LogFormat("typeArrayTime={0}, dictTime={1}, hashtableTime={2}",
-                typeArrayTime, dictTime, hashtableTime);
+            UnityEngine.Debug.LogFormat("typeArrayTime={0}, sortedTableTime={1}, dictTime={2}, hashtableTime={3}",
+                typeArrayTime, sortedTableTime, dictTime, hashtableTime);
 
-            UnityEngine.Debug.LogFormat("dictRatio={0}, hashtableRatio={1}",
-                dictTime / typeArrayTime, hashtableTime / typeArrayTime);
+            UnityEngine.Debug.LogFormat("sortedTableRatio={0}, dictRatio={1}, hashtableRatio={2}",
+                sortedTableTime/typeArrayTime, dictTime / typeArrayTime, hashtableTime / typeArrayTime);
         }
 
         private void _TestTypeArray()
@@ -65,6 +69,15 @@ namespace Client
             }
         }
 
+        private void _TestSortedTable ()
+        {
+            var count = _typeArray.Length;
+            for (int i = 0; i < count; ++i)
+            {
+                var type = _typeArray[i];
+                var result = _sortedTable[type];
+            }
+        }
         private void _TestDict()
         {
             var count = _typeArray.Length;
@@ -100,6 +113,8 @@ namespace Client
         }
 
         private Type[] _typeArray;
+        private SortedTable<Type, object> _sortedTable;
+
         private Dictionary<Type, object> _dict;
         private Hashtable _hashtable;
     }
