@@ -9,6 +9,7 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unique;
 using UnityEngine;
 
@@ -18,42 +19,11 @@ namespace Client
     {
         IEnumerator Start()
         {
-            Type a;
-            Type b;
-
-            if (a > b)
-            {
-
-            }
-            
             var testCount = 10000;
             var tableSize = 20;
 
-            var types = new Type[testCount];
-            var typeNames = new string[testCount];
-
-            {
-                var index = 0;
-                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (var type in assembly.GetTypes())
-                    {
-                        types[index] = type;
-                        typeNames[index] = type.Name;
-                        ++index;
-
-                        if (index == testCount)
-                        {
-                            break;
-                        }
-                    }
-
-                    if (index == testCount)
-                    {
-                        break;
-                    }
-                }
-            }
+            var types = TypeTools.EnumerateTypes().Take(testCount).ToArray();
+            var typeNames = (from type in types select type.Name).ToArray();
 
             var forceFullCollection = false;
 
