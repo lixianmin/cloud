@@ -20,7 +20,7 @@ namespace Client
 
             for (int i = 0; i < 10; ++i)
             {
-                _OneTest(5000);
+                _OneTest(10000);
             }
         }
 

@@ -20,7 +20,7 @@ namespace Client
         IEnumerator Start()
         {
             var testCount = 10000;
-            var tableSize = 20;
+            var tableSize = 50;
 
             var types = TestTools.EnumerateTypes().Take(testCount).ToArray();
             var typeNames = (from type in types select type.Name).ToArray();
